@@ -1,0 +1,45 @@
+name: Run Tests
+
+on: push
+
+jobs:
+  build:
+
+    name: "${{ matrix.bot }} (${{ matrix.dart-version }}/${{ matrix.code-version }}/${{ matrix.os }})"
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+        node-version: [10]
+        code-version: [stable, insiders]
+        bot: [test]
+        
+    steps:
+
+      - uses: actions/checkout@v1
+
+      - name: Setup XVFB
+        if: matrix.os == 'ubuntu-latest'
+        run: Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+
+      - name: Setup Node v${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: npm install
+        run: npm install
+        
+      - name: npm compile
+        run: npm run compile
+
+      - name: npm test
+        run: npm test
+        env:
+          CI: true
+          ELECTRON_NO_ATTACH_CONSOLE: 1
+          DISPLAY: ":99.0"
+          BOT: ${{ matrix.bot }}
+          CODE_VERSION: ${{ matrix.code-version }}
