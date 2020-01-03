@@ -1,0 +1,44 @@
+{
+	"name": "vscode-repro-86382",
+	"displayName": "VS Code Repro 86382",
+	"description": "VS Code Repro 86382",
+	"version": "1.2.3",
+	"publisher": "DanTup",
+	"engines": {
+		"vscode": "^1.40.0"
+	},
+	"extensionKind": [
+		"workspace"
+	],
+	"license": "SEE LICENSE IN LICENSE",
+	"bugs": {
+		"url": "https://github.com/DanTup/vscode-sock-issue-86382/issues"
+	},
+	"homepage": "https://github.com/microsoft/vscode/issues/86382",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/DanTup/vscode-sock-issue-86382.git"
+	},
+	"categories": [],
+	"keywords": [],
+	"activationEvents": [
+		"*"
+	],
+	"main": "./out/extension/extension.js",
+	"contributes": {},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"test": "node ./out/src/test/test_all.js"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"@types/mocha": "^5.2.7",
+		"@types/node": "^12.12.14",
+		"@types/vscode": "^1.40.0",
+		"vscode-test": "^1.2.3",
+		"mocha": "^6.2.2",
+		"typescript": "3.4.3"
+	}
+}
