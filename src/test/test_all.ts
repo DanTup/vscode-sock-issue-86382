@@ -31,6 +31,7 @@ async function runAllTests(): Promise<void> {
 
 	try {
 		await runTests("test1", "empty");
+		await new Promise((resolve) => setTimeout(resolve, 5000));
 		await runTests("test2", "empty");
 	} catch (e) {
 		exitCode = 1;
