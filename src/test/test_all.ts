@@ -5,7 +5,7 @@ let exitCode = 0;
 const cwd = process.cwd();
 const testEnv = Object.create(process.env);
 
-async function runTests(testFolder: string, workspaceFolder: string, env?: {}): Promise<void> {
+async function runTests(testFolder: string, workspaceFolder: string, userDataDirSuffix: string, env?: {}): Promise<void> {
 	console.log(`Running ${testFolder} tests folder in workspace ${workspaceFolder}`);
 
 	try {
@@ -16,7 +16,7 @@ async function runTests(testFolder: string, workspaceFolder: string, env?: {}): 
 			launchArgs: [
 				path.join(cwd, "src", "test", "test_projects", workspaceFolder),
 				"--user-data-dir",
-				path.join(cwd, ".test_data_dir"),
+				path.join(cwd, ".test_data_dir", userDataDirSuffix),
 			],
 			version: process.env.CODE_VERSION,
 		});
@@ -30,9 +30,9 @@ async function runTests(testFolder: string, workspaceFolder: string, env?: {}): 
 async function runAllTests(): Promise<void> {
 
 	try {
-		await runTests("test1", "empty");
+		await runTests("test1", "empty", "1");
 		await new Promise((resolve) => setTimeout(resolve, 5000));
-		await runTests("test2", "empty");
+		await runTests("test2", "empty", "2");
 	} catch (e) {
 		exitCode = 1;
 		console.error(e);
